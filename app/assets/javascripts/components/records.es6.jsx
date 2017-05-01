@@ -7,14 +7,14 @@ class Records extends React.Component {
     }
   }
   addRecord(record){
-    records = this.state.records.slice()
-    records.push(record)
+    records = React.addons.update(this.state.records, { $push: [record]})
+    console.log("Records:")
+    console.log(records);
     this.setState({records: records})
   }
   deleteRecord(record){
-    records = this.state.records.slice()
-    index = records.indexOf(record)
-    records.splice(index, 1)
+    index   = this.state.records.indexOf(record)
+    records = React.addons.update(this.state.records, {$splice: [[index, 1]] })
     this.setState({records: records})
   }
   credits(){
