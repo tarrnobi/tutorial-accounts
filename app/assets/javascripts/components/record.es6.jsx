@@ -1,6 +1,7 @@
 class Record extends React.Component{
   constructor(props){
     super(props)
+    this.nodes = {}
     this.state = {edit: false}
   }
   formatAmount(amount) {
@@ -18,9 +19,9 @@ class Record extends React.Component{
   }
   handleEdit(event){
     event.preventDefault()
-    console.log("dateNode: "   + this.dateNode.value)
-    console.log("titleNode: "  + this.titleNode.value)
-    console.log("amountNode: " + this.amountNode.value)
+    console.log(this.nodes["date"].value)
+    console.log(this.nodes["title"].value)
+    console.log(this.nodes["amount"].value)
   }
   handleToggleEdit(event){
     event.preventDefault()
@@ -53,19 +54,19 @@ class Record extends React.Component{
           <input className="form-control"
             type="text"
             defaultValue={this.props.record.date}
-            ref={node=> this.dateNode = node}/>
+            ref={node=> this.nodes["date"] = node}/>
         </td>
         <td>
           <input className="form-control"
             type="text"
             defaultValue={this.props.record.title}
-            ref={node=> this.titleNode = node}/>
+            ref={node=> this.nodes["title"] = node}/>
         </td>
         <td>
           <input className="form-control"
             type="number"
             defaultValue={this.props.record.amount}
-            ref={node=> this.amountNode = node}/>
+            ref={node=> this.nodes["amount"] = node}/>
         </td>
         <td>
           <a className="btn btn-default"
