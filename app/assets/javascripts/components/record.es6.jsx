@@ -4,9 +4,7 @@ class Record extends React.Component{
     this.nodes = {}
     this.state = {edit: false}
   }
-  formatAmount(amount) {
-    return '$' + Number(amount.toLocaleString())
-  }
+
   handleDelete(event){
     event.preventDefault()
     deleteURL = "/records/" + this.props.record.id
@@ -19,9 +17,23 @@ class Record extends React.Component{
   }
   handleEdit(event){
     event.preventDefault()
-    console.log(this.nodes["date"].value)
-    console.log(this.nodes["title"].value)
-    console.log(this.nodes["amount"].value)
+    updateURL = "/records/" + this.props.record.id
+    payload   = {
+      date: this.nodes["date"].value,
+      title: this.nodes["title"].value,
+      amount: this.nodes["amount"].value
+    }
+    $.ajax({
+      type:"PUT",
+      url: updateURL,
+      dataType: "JSON",
+      data: {record: payload},
+      success: (data) => {
+        this.setState({edit: false})
+        this.props.handleEditRecord(this.props.record, data)
+
+      }
+    })
   }
   handleToggleEdit(event){
     event.preventDefault()
@@ -32,7 +44,7 @@ class Record extends React.Component{
       <tr>
         <td>{this.props.title}</td>
         <td>{this.props.date}</td>
-        <td>{this.formatAmount(this.props.amount)}</td>
+        <td>{formatAmount(this.props.amount)}</td>
         <td>
           <a className="btn btn-default"
             onClick={this.handleToggleEdit.bind(this)}>

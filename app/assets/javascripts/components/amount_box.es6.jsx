@@ -1,7 +1,4 @@
 class AmountBox extends React.Component {
-  formatAmount(amount) {
-    return '$ ' + Number(amount.toLocaleString())
-  }
 
   render () {
     return (
@@ -11,7 +8,7 @@ class AmountBox extends React.Component {
            {this.props.text}
          </div>
          <div className="panel-body">
-           {this.formatAmount(this.props.amount)}
+           {formatAmount(this.props.amount)}
          </div>
        </div>
      </div>

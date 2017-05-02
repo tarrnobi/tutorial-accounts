@@ -17,6 +17,11 @@ class Records extends React.Component {
     records = React.addons.update(this.state.records, {$splice: [[index, 1]] })
     this.setState({records: records})
   }
+  updateRecord(record,data){
+    index = this.state.records.indexOf(record)
+    records = React.addons.update(this.state.records, {$splice: [[index, 1, data]] })
+    this.setState({records: records})
+  }
   credits(){
     credits = this.state.records.filter(val => val.amount>=0)
     return credits.reduce ( (previous, current) => previous + parseFloat(current.amount),0)
@@ -72,6 +77,7 @@ class Records extends React.Component {
                 amount={row.amount}
                 record={row}
                 handleDeleteRecord={this.deleteRecord.bind(this)}
+                handleEditRecord={this.updateRecord.bind(this)}
               />
             )})
         }

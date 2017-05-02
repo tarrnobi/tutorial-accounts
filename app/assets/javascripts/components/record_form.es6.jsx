@@ -15,6 +15,7 @@ class RecordForm extends React.Component{
     this.setState(change)
   }
   handleSubmit(event){
+    console.log(this.state)
     event.preventDefault()
     $.post(''
       , {record: this.state}
